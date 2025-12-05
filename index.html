@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Real-Time Roller Coaster Braking System – Starsoul03</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      line-height: 1.6;
+    }
+    h1 {
+      text-align: center;
+      color: #2c3e50;
+    }
+    .video-container {
+      position: relative;
+      padding-bottom: 56.25%;
+      height: 0;
+      overflow: hidden;
+      margin-top: 20px;
+    }
+    .video-container iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Real-Time Roller Coaster Braking System</h1>
+
+  <p>
+    This website showcases my Application 6 project, where I built a real-time
+    embedded braking controller for a fictional Orlando-based theme-park
+    engineering company called <strong>Orlando ThrillWorks</strong>. The system
+    runs on an ESP32 using FreeRTOS and demonstrates deterministic braking,
+    emergency-stop handling, timing logs, and multiple concurrent tasks running
+    under real-time constraints.
+  </p>
+
+  <h2>Project Demo Video</h2>
+  <p>Below is my 90-second Wokwi demo video:</p>
+
+  <div class="video-container">
+    <iframe
+      src="https://www.youtube.com/embed/_IMC-on4Qeo"
+      frameborder="0"
+      allowfullscreen>
+    </iframe>
+  </div>
+
+  <h2>What This Prototype Demonstrates</h2>
+  <ul>
+    <li>Hard real-time tasks running every 20 ms</li>
+    <li>Instant emergency stop via ISR + binary semaphore</li>
+    <li>Queue, mutex, and critical section synchronization</li>
+    <li>Soft tasks for telemetry and heartbeat indicators</li>
+    <li>Timestamps proving hard deadline consistency</li>
+  </ul>
+
+  <p>
+    GitHub Repository:
+    <a href="https://github.com/Starsoul03/Starsoul03.github.io">
+      https://github.com/Starsoul03/Starsoul03.github.io
+    </a>
+  </p>
+
+</body>
+</html>
