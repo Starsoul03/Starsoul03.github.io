@@ -1,75 +1,342 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Real-Time Roller Coaster Braking System – Starsoul03</title>
+  <meta charset="UTF-8" />
+  <title>Starsoul – Real-Time Roller Coaster Braking System</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+
   <style>
-    body {
-      font-family: Arial, sans-serif;
-      max-width: 800px;
-      margin: auto;
-      padding: 30px;
-      line-height: 1.6;
+    :root {
+      --bg-gradient: linear-gradient(135deg, #0b1020 0%, #1a1030 40%, #301a4b 100%);
+      --card-bg: rgba(13, 16, 34, 0.9);
+      --accent: #ff77c8;
+      --accent-soft: rgba(255, 119, 200, 0.25);
+      --text-main: #f4f4ff;
+      --text-muted: #c9c9e6;
+      --border-subtle: rgba(255, 255, 255, 0.05);
+      --shadow-soft: 0 18px 40px rgba(0, 0, 0, 0.45);
+      --radius-xl: 18px;
     }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      padding: 32px 16px;
+    }
+
+    .stars-bg {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      opacity: 0.3;
+      background-image:
+        radial-gradient(circle at 10% 20%, rgba(255,255,255,0.6) 0, transparent 35%),
+        radial-gradient(circle at 80% 0%, rgba(255,119,200,0.6) 0, transparent 45%),
+        radial-gradient(circle at 0% 100%, rgba(130,170,255,0.55) 0, transparent 40%);
+      mix-blend-mode: screen;
+      z-index: 0;
+    }
+
+    .page {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 960px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border-radius: 24px;
+      padding: 28px 24px 32px;
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--border-subtle);
+      backdrop-filter: blur(12px);
+    }
+
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 30%, #fff 0, #ffe0f5 25%, #ff77c8 55%, #8f6bff 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #220b33;
+      font-weight: 700;
+      font-size: 1.2rem;
+      box-shadow: 0 0 20px var(--accent-soft);
+    }
+
+    .brand-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      color: var(--accent);
+    }
+
+    .brand-tagline {
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .badge {
+      padding: 6px 12px;
+      border-radius: 999px;
+      border: 1px solid var(--accent-soft);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .badge-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 999px;
+      background: #62ffb8;
+      box-shadow: 0 0 10px rgba(98, 255, 184, 0.9);
+    }
+
     h1 {
       text-align: center;
-      color: #2c3e50;
+      font-size: 1.9rem;
+      margin: 10px 0 16px;
     }
+
+    .subtitle {
+      text-align: center;
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 24px;
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      margin: 22px 0 10px;
+    }
+
+    p {
+      font-size: 0.95rem;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    ul {
+      list-style: none;
+      margin-left: 0;
+      margin-top: 10px;
+    }
+
+    ul li {
+      padding-left: 1.3em;
+      position: relative;
+      margin-bottom: 6px;
+      color: var(--text-muted);
+      font-size: 0.95rem;
+    }
+
+    ul li::before {
+      content: "✦";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-size: 0.8rem;
+      top: 3px;
+    }
+
+    .video-section {
+      margin-top: 24px;
+    }
+
     .video-container {
       position: relative;
       padding-bottom: 56.25%;
       height: 0;
       overflow: hidden;
-      margin-top: 20px;
+      margin-top: 16px;
+      border-radius: var(--radius-xl);
+      box-shadow: var(--shadow-soft);
+      border: 1px solid var(--accent-soft);
     }
+
     .video-container iframe {
       position: absolute;
       top: 0;
       left: 0;
       width: 100%;
       height: 100%;
+      border-radius: inherit;
+    }
+
+    .footer {
+      margin-top: 26px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border-subtle);
+      padding-top: 14px;
+    }
+
+    .button-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: #1b1027;
+      background: var(--accent);
+      box-shadow: 0 10px 22px rgba(255, 119, 200, 0.45);
+      transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+    }
+
+    .button-link:hover {
+      transform: translateY(-1px);
+      background: #ff8fda;
+      box-shadow: 0 14px 28px rgba(255, 119, 200, 0.55);
+    }
+
+    .button-link span.icon {
+      font-size: 1rem;
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 18px 10px;
+      }
+
+      .card {
+        padding: 20px 16px 24px;
+      }
+
+      h1 {
+        font-size: 1.6rem;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="stars-bg"></div>
 
-  <h1>Real-Time Roller Coaster Braking System</h1>
+  <main class="page">
+    <section class="card">
+      <!-- Header / Branding -->
+      <div class="header">
+        <div class="brand">
+          <div class="brand-icon">★</div>
+          <div class="brand-text">
+            <div class="brand-name">STARSOUL</div>
+            <div class="brand-tagline">Real-Time Embedded Systems • ESP32 + FreeRTOS</div>
+          </div>
+        </div>
 
-  <p>
-    This website showcases my Application 6 project, where I built a real-time
-    embedded braking controller for a fictional Orlando-based theme-park
-    engineering company called <strong>Orlando ThrillWorks</strong>. The system
-    runs on an ESP32 using FreeRTOS and demonstrates deterministic braking,
-    emergency-stop handling, timing logs, and multiple concurrent tasks running
-    under real-time constraints.
-  </p>
+        <div class="badge">
+          <span class="badge-dot"></span>
+          <span>Application 6 • Demo Site</span>
+        </div>
+      </div>
 
-  <h2>Project Demo Video</h2>
-  <p>Below is my 90-second Wokwi demo video:</p>
+      <!-- Title & Intro -->
+      <h1>Real-Time Roller Coaster Braking System</h1>
+      <p class="subtitle">
+        A timing-critical braking controller prototype for the fictional Orlando ThrillWorks
+        theme-park engineering team.
+      </p>
 
-  <div class="video-container">
-    <iframe
-      src="https://www.youtube.com/embed/_IMC-on4Qeo"
-      frameborder="0"
-      allowfullscreen>
-    </iframe>
-  </div>
+      <p>
+        This website showcases my Application 6 project, where I built a real-time embedded
+        braking controller for a fictional Orlando-based theme-park engineering company called
+        <strong>Orlando ThrillWorks</strong>. The system runs on an ESP32 using FreeRTOS and
+        demonstrates deterministic braking, emergency-stop handling, timing logs, and multiple
+        concurrent tasks running under real-time constraints.
+      </p>
 
-  <h2>What This Prototype Demonstrates</h2>
-  <ul>
-    <li>Hard real-time tasks running every 20 ms</li>
-    <li>Instant emergency stop via ISR + binary semaphore</li>
-    <li>Queue, mutex, and critical section synchronization</li>
-    <li>Soft tasks for telemetry and heartbeat indicators</li>
-    <li>Timestamps proving hard deadline consistency</li>
-  </ul>
+      <!-- Video -->
+      <section class="video-section">
+        <h2>Project Demo Video</h2>
+        <p>Watch my 90-second Wokwi demo of the real-time braking system:</p>
 
-  <p>
-    GitHub Repository:
-    <a href="https://github.com/Starsoul03/Starsoul03.github.io">
-      https://github.com/Starsoul03/Starsoul03.github.io
-    </a>
-  </p>
+        <div class="video-container">
+          <iframe
+            src="https://www.youtube.com/embed/_IMC-on4Qeo"
+            title="ESP32 Real-Time Roller Coaster Braking System Demo"
+            frameborder="0"
+            allowfullscreen>
+          </iframe>
+        </div>
+      </section>
 
+      <!-- Features -->
+      <section>
+        <h2>What This Prototype Demonstrates</h2>
+        <ul>
+          <li>Hard real-time tasks running every 20 ms for sensor sampling and brake control.</li>
+          <li>Instant emergency stop via ISR + binary semaphore that latches the brakes on.</li>
+          <li>Queue, mutex, and critical section synchronization between concurrent tasks.</li>
+          <li>Soft tasks for telemetry logging and a heartbeat LED for system status.</li>
+          <li>Serial timestamps that prove hard deadlines are consistently met.</li>
+        </ul>
+      </section>
+
+      <!-- Footer / Links -->
+      <footer class="footer">
+        <div>
+          © 2025 <strong>Starsoul03</strong> • Built with ESP32, FreeRTOS, Wokwi & GitHub Pages.
+        </div>
+        <a
+          class="button-link"
+          href="https://github.com/Starsoul03/Starsoul03.github.io"
+          target="_blank"
+          rel="noopener noreferrer">
+          <span class="icon">💫</span>
+          <span>View project on GitHub</span>
+        </a>
+      </footer>
+    </section>
+  </main>
 </body>
 </html>
